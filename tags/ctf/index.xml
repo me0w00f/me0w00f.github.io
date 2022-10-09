@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Me0w00f Security </title>
-    <link>https://me0w00f.github.io/posts/</link>
-    <description>Recent content in Posts on Me0w00f Security </description>
+    <title>CTF on Me0w00f Security </title>
+    <link>https://me0w00f.github.io/tags/ctf/</link>
+    <description>Recent content in CTF on Me0w00f Security </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This is a customized copyright.</copyright>
-    <lastBuildDate>Sun, 09 Oct 2022 13:47:29 +0800</lastBuildDate><atom:link href="https://me0w00f.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 09 Oct 2022 13:47:29 +0800</lastBuildDate><atom:link href="https://me0w00f.github.io/tags/ctf/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>写几个 Misc 的 WP</title>
       <link>https://me0w00f.github.io/posts/somewp/</link>
@@ -30,17 +30,6 @@ $ mv theme.png theme.zip -v 解压这个压缩包
 unzip unzip theme.zip 然后得到 flag.xml
 用 cat 查看它的内容得到 flag
 cat flag.xml 得到一串 emoji 表情:</description>
-    </item>
-    
-    <item>
-      <title>Hello</title>
-      <link>https://me0w00f.github.io/posts/hello/</link>
-      <pubDate>Sun, 09 Oct 2022 13:30:40 +0800</pubDate>
-      
-      <guid>https://me0w00f.github.io/posts/hello/</guid>
-      <description>Hi 博客正式建立～～
-以后会更新一些类似于 wp 的文章哦～
-本篇作者: WeepingDogel</description>
     </item>
     
   </channel>

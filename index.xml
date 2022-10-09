@@ -7,9 +7,211 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This is a customized copyright.</copyright>
-    <lastBuildDate>Sun, 09 Oct 2022 13:30:40 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 09 Oct 2022 13:47:29 +0800</lastBuildDate>
     
         <atom:link href="https://me0w00f.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>写几个 Misc 的 WP</title>
+        <link>https://me0w00f.github.io/posts/somewp/</link>
+        <pubDate>Sun, 09 Oct 2022 13:47:29 +0800</pubDate>
+        
+        <guid>https://me0w00f.github.io/posts/somewp/</guid>
+        <description>Me0w00f Security  https://me0w00f.github.io/posts/somewp/ -&lt;h1 id=&#34;序&#34;&gt;序&lt;/h1&gt;
+&lt;p&gt;嘿嘿，昨天有几个《简单》的 Misc， 菜菜的我们研究了一整天，今天来写一下 WP。&lt;/p&gt;
+&lt;h1 id=&#34;week2ex_wordzip&#34;&gt;[WEEK2]ex_word.zip&lt;/h1&gt;
+&lt;p&gt;这是个压缩包，打开，里面是个 Word 文档。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_13-57-16.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;解压出来，用 libreoffice 打开。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-00-55.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;嗯&amp;hellip;  没什么有价值的信息。&lt;/p&gt;
+&lt;p&gt;根据我小时候用 winrar 打开过 docx 文件的经验来看， docx 文档本质上也可能是压缩文件。&lt;/p&gt;
+&lt;p&gt;因此，我们将文件后缀改为zip&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ mv 你抓鲁迅，跟我周树人有什么关系.docx 你抓鲁迅，跟我周树人有什么关系.zip -v
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后进行解压&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;unzip 你抓鲁迅，跟我周树人有什么关系.zip
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-04-25.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;得到三个目录，一个文件&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-05-29.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;打开 &lt;code&gt;word/media&lt;/code&gt; 目录，发现两张图片，左边&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-06-24.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;分别用 &lt;code&gt;binwalk&lt;/code&gt; 查看&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ binwalk image1.jpeg 
+&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ binwalk theme.png
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-08-31.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;发现 &lt;code&gt;theme.png&lt;/code&gt; 有猫腻， &lt;code&gt;binwalk&lt;/code&gt; 返回的数据告诉我们它其实是个 zip 压缩文件。&lt;/p&gt;
+&lt;p&gt;因此，我们试着改它的后缀为 &lt;code&gt;*.zip&lt;/code&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ mv theme.png theme.zip -v
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-10-40.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;解压这个压缩包&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;unzip unzip theme.zip
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后得到 &lt;code&gt;flag.xml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-11-59.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;用 cat 查看它的内容得到 flag&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cat flag.xml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-13-50.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;得到一串 emoji 表情:&lt;/p&gt;
+&lt;p&gt;👥👪👪👚👫👝👲👫🐧🐨👪👖🐨👪👖👫👟🐧👖👫👩👬🐪👖👝🐨👘👞👴&lt;/p&gt;
+&lt;p&gt;用 &lt;a href=&#34;http://www.atoolbox.net/Tool.php?Id=937&#34;&gt;emoji 在线解密工具&lt;/a&gt;解密获得 flag&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-17-09.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;解密得到: &lt;strong&gt;&lt;code&gt;nssctf{t01s_1s_th0_tru3_f1ag}&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;至此，此题已解。&lt;/p&gt;
+&lt;h1 id=&#34;二维码里只有黑和白pdf&#34;&gt;二维码里只有黑和白.pdf&lt;/h1&gt;
+&lt;p&gt;一个 pdf 文件，用浏览器打开是空白，表面上并不会得到任何结果。&lt;/p&gt;
+&lt;p&gt;其实 pdf 本质上也是 zip 压缩&lt;/p&gt;
+&lt;p&gt;不然可以用 &lt;code&gt;binwalk&lt;/code&gt; 看一下，&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ binwalk 二维码里只有黑和白.pdf 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-21-02.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;我们试试直接把它格式改为 zip&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ mv 二维码里只有黑和白.pdf 二维码里只有黑和白.zip -v
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-23-21.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;解压，得到一张图片&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-25-09.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%AD%A3%E5%A6%82%E8%AE%A1%E7%AE%97%E6%9C%BA%E9%87%8C%E5%8F%AA%E6%9C%890%E5%92%8C1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;也许我们会被误导，因为最开始的文件提到了 “二维码”，但是我们用手机却无法扫出来。&lt;/p&gt;
+&lt;p&gt;后来我去用谷歌识图搜索了一下，发现它确实是一种二维码，叫 &lt;a href=&#34;https://en.wikipedia.org/wiki/MaxiCode&#34;&gt;MaxiCode&lt;/a&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;MaxiCode是由United Parcel Service最初创建和使用的公共域，机器可读的符号系统。它类似于Aztec码或QR码，适用于跟踪和管理包裹的运输，但使用的点排列成六角形网格而不是方形网格。MaxiCode已根据ISO / IEC 16023进行了标准化。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这种码一般是无法用手机扫出来的（&lt;del&gt;这是半小时举着手机得出来的结论&lt;/del&gt;）&lt;/p&gt;
+&lt;p&gt;因此，我们需要去寻找 &lt;a href=&#34;https://products.aspose.app/barcode/recognize/maxicode&#34;&gt;MaxiCode 的在线解码工具&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;用在线工具得出一串 base64 码: &lt;code&gt;bnNzY3Rme0lfaDB0ZV90aGVfUVJjMGRlISEhIX0=&lt;/code&gt;
+&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-29-44.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;解开这个 Base64 就可以得到答案了。&lt;/p&gt;
+&lt;p&gt;这里我们用 Python, 这个脚本已经在我们的库里了哦～&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/me0w00f/SimpleTools/blob/main/base64decode.py&#34;&gt;SimpleTools/base64decode.py&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 2
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 3
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 4
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 5
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 6
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 7
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 8
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 9
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;10
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# /usr/bin/python&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# -*- coding: utf-8 -*-&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; argparse
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; base64
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;parser &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; argparse&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ArgumentParser(description&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;A base64 decoder script made by WeepingDogel for CTF.&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;parser&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;add_argument(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;-d&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;--decode&amp;#39;&lt;/span&gt;, help&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;decode some strings.&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;args &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; parser&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;parse_args()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;r &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; base64&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;b64decode(args&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decode)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;print(r)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ python SimpleTools/base64decode.py -d &amp;#39;bnNzY3Rme0lfaDB0ZV90aGVfUVJjMGRlISEhIX0=&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-38-13.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;得到flag: &lt;strong&gt;&lt;code&gt;nssctf{I_h0te_the_QRc0de!!!!}&#39;&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&#34;p02exe&#34;&gt;p02.exe&lt;/h1&gt;
+&lt;p&gt;嘿嘿，表面上看这是个 exe 文件，但想想，咱现在在 kali 上， 是 Linux， 那 Linux 怎么能跑 exe 文件呢？是吧&lt;/p&gt;
+&lt;p&gt;直接拿 &lt;code&gt;hexdump&lt;/code&gt; 来看&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ hexdump -C p02.exe
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-46-57.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;看到了一句话： &lt;code&gt;This program cannot be run in DOS mode.&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;意思是，在 dos 模式这个程序跑不了。&lt;/p&gt;
+&lt;p&gt;我们再往下找找有没有什么信息。&lt;/p&gt;
+&lt;p&gt;找到了&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-50-37.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;flag 在这&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-53-16.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;复制粘贴出来 &lt;strong&gt;&lt;code&gt;NSSCTF{oh_you_find_it}&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&#34;源码zip&#34;&gt;源码.zip&lt;/h1&gt;
+&lt;p&gt;这个最难&lt;/p&gt;
+&lt;p&gt;首先我们解压压缩包&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-58-02.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;得到一张图片和一个压缩包&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_15-00-45.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;压缩包有加密，因此我们得从这个图片中获得密码。&lt;/p&gt;
+&lt;p&gt;先 &lt;code&gt;hexdump&lt;/code&gt; 吧&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ hexdump key.png -C
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;找到线索&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_15-03-15.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;{GMZTGYJQGM3TAYTDMQYGGMBUGRQWENTYGFRWMMZRMI2DINZYMUYDM===}..{broken password}&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;broken password 翻译过来是损坏的密码。&lt;/p&gt;
+&lt;p&gt;我试过用 base64 去解这一串，但是解不出来。&lt;/p&gt;
+&lt;p&gt;因此，我蒙它是 base32&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;echo &amp;#39;GMZTGYJQGM3TAYTDMQYGGMBUGRQWENTYGFRWMMZRMI2DINZYMUYDM===&amp;#39; &amp;gt; flag.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;base32 -d flag.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_15-16-28.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;得到一串 &lt;strong&gt;&lt;code&gt;333a0370bcd0c044ab6x1cf31b4478e06&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;不知道它是什么加密，是 md5 吗？看起来像。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_15-19-48.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;无法解密。&lt;/p&gt;
+&lt;p&gt;查了一下，md5只有32位字符。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_15-21-10.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;而这一串有33位。&lt;/p&gt;
+&lt;p&gt;我们堵它是md5,但是多了一位，不知道多出来的是哪一位。&lt;/p&gt;
+&lt;p&gt;因此，我们要复制粘贴33列，每一列按顺序去掉一位。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;33a0370bcd0c044ab6x1cf31b4478e06
+33a0370bcd0c044ab6x1cf31b4478e06
+33a0370bcd0c044ab6x1cf31b4478e06
+3330370bcd0c044ab6x1cf31b4478e06
+333a370bcd0c044ab6x1cf31b4478e06
+333a070bcd0c044ab6x1cf31b4478e06
+333a030bcd0c044ab6x1cf31b4478e06
+333a037bcd0c044ab6x1cf31b4478e06
+333a0370cd0c044ab6x1cf31b4478e06
+333a0370bd0c044ab6x1cf31b4478e06
+333a0370bc0c044ab6x1cf31b4478e06
+333a0370bcdc044ab6x1cf31b4478e06
+333a0370bcd0044ab6x1cf31b4478e06
+333a0370bcd0c44ab6x1cf31b4478e06
+333a0370bcd0c04ab6x1cf31b4478e06
+333a0370bcd0c04ab6x1cf31b4478e06
+333a0370bcd0c044b6x1cf31b4478e06
+333a0370bcd0c044a6x1cf31b4478e06
+333a0370bcd0c044abx1cf31b4478e06
+333a0370bcd0c044ab61cf31b4478e06
+333a0370bcd0c044ab6xcf31b4478e06
+333a0370bcd0c044ab6x1f31b4478e06
+333a0370bcd0c044ab6x1c31b4478e06
+333a0370bcd0c044ab6x1cf1b4478e06
+333a0370bcd0c044ab6x1cf3b4478e06
+333a0370bcd0c044ab6x1cf314478e06
+333a0370bcd0c044ab6x1cf31b478e06
+333a0370bcd0c044ab6x1cf31b478e06
+333a0370bcd0c044ab6x1cf31b448e06
+333a0370bcd0c044ab6x1cf31b447e06
+333a0370bcd0c044ab6x1cf31b447806
+333a0370bcd0c044ab6x1cf31b4478e6
+333a0370bcd0c044ab6x1cf31b4478e0
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;把这些复制粘贴到解密网站上，等结果&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_15-29-34.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;最后我们获得了密码: &lt;strong&gt;&lt;code&gt;chinano1&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_15-30-16.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;用密码解压出 flag1.png&lt;/p&gt;
+&lt;p&gt;得到的又是图片&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_15-32-14.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;用 &lt;code&gt;binwalk&lt;/code&gt; 查看&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ binwalk flag1.png 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_15-33-49.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;嗯&amp;hellip; 到最后还是有个图片隐写。&lt;/p&gt;
+&lt;p&gt;我们用 dd 命令分离， &lt;code&gt;skip=要分离出的那一项的长度&lt;/code&gt;， 我们要分离中间的出来&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ dd if=flag1.png of=flag.png skip=74016 bs=1
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;又得到一张图片，打开图片显示的就是我们的 flag 啦～！&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_15-37-10.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_15-36-29.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;最后我们得到了 flag～！！&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://me0w00f.github.io/images/flag-%E6%BA%90%E7%A0%81.zip.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;至此，此题已解~&lt;/p&gt;
+&lt;h1 id=&#34;结&#34;&gt;结&lt;/h1&gt;
+&lt;p&gt;好啦，写完啦～&lt;/p&gt;
+&lt;p&gt;没想到这些签到题花了一天的时间呢&amp;hellip;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;本篇作者: &lt;a href=&#34;&#34;&gt;WeepingDogel&lt;/a&gt;&lt;/p&gt;
+- https://me0w00f.github.io/posts/somewp/ - This is a customized copyright.</description>
+        </item>
     
     
     

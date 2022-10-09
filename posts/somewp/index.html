@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html><head>
+<title>写几个 Misc 的 WP</title>
+
+
+
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="有手就行的题...">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<meta property="og:title" content="写几个 Misc 的 WP" />
+<meta property="og:description" content="有手就行的题..." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://me0w00f.github.io/posts/somewp/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-10-09T13:47:29+08:00" />
+<meta property="article:modified_time" content="2022-10-09T13:47:29+08:00" /><meta property="og:site_name" content="My Blog" />
+
+
+
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="写几个 Misc 的 WP"/>
+<meta name="twitter:description" content="有手就行的题..."/>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="/scss/journal.min.c5d92f380bf10f6849c7ac487c7df2b22c081e0851e5339224f1ae29210b20d2.css" integrity="sha256-xdkvOAvxD2hJx6xIfH3ysiwIHghR5TOSJPGuKSELINI=" media="screen">
+
+
+
+<link rel="stylesheet" href="/scss/dark-mode.min.9f8d8c2df9285089d141edd4a50cb7506c7948e6ab79a29968dced1bd0ab7d22.css" integrity="sha256-n42MLfkoUInRQe3UpQy3UGx5SOareaKZaNztG9CrfSI=" media="screen">
+
+
+
+
+      <script src="/js/toc.js"></script>
+    
+    <link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css"><link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Material+Icons">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+    	<div id="app"><div id="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="https://me0w00f.github.io/">
+    
+        <div class="nav-title">
+            Me0w00f Security 
+        </div>
+        
+        <div class="nav-subtitle">
+            We are me0w00f security~
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+                
+            
+            
+            
+            <a class="a-block nav-link-item active" href="/posts">
+                Archive
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                Categories
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                Tags
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/about">
+                About
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/index.xml">
+                RSS Feed
+            </a>
+            
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+移植自 <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+
+    </div>
+    
+</div><div id="extraContainer" class="extra-container">
+    
+    
+    <div class="toc animated-visibility" :class="{ invisible: scrollY <= 140 }">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- 目录 -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%ba%8f" onclick="onNavClick(`#序-nav`)" id="序-nav">
+									序
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#week2ex_wordzip" onclick="onNavClick(`#week2ex_wordzip-nav`)" id="week2ex_wordzip-nav">
+									[WEEK2]ex_word.zip
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e4%ba%8c%e7%bb%b4%e7%a0%81%e9%87%8c%e5%8f%aa%e6%9c%89%e9%bb%91%e5%92%8c%e7%99%bdpdf" onclick="onNavClick(`#二维码里只有黑和白pdf-nav`)" id="二维码里只有黑和白pdf-nav">
+									二维码里只有黑和白.pdf
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#p02exe" onclick="onNavClick(`#p02exe-nav`)" id="p02exe-nav">
+									p02.exe
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e6%ba%90%e7%a0%81zip" onclick="onNavClick(`#源码zip-nav`)" id="源码zip-nav">
+									源码.zip
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e7%bb%93" onclick="onNavClick(`#结-nav`)" id="结-nav">
+									结
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+    
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a type="button" class="pagination-action" id="darkModeToggleButton">
+            <span class="material-icons pagination-action-icon" id="darkModeToggleIcon">
+                dark_mode
+            </span>
+        </a>
+        
+        
+    </div>
+</div>
+<div class="single-column-drawer-container" id="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                    
+                
+                
+                
+                <a class="a-block drawer-menu-item active" href="/posts">
+                    Archive
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    Categories
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    Tags
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/about">
+                    About
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/index.xml">
+                    RSS Feed
+                </a>
+                
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- 目录 -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%ba%8f" onclick="onNavClick(`#序-nav`)" id="序-nav">
+									序
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#week2ex_wordzip" onclick="onNavClick(`#week2ex_wordzip-nav`)" id="week2ex_wordzip-nav">
+									[WEEK2]ex_word.zip
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e4%ba%8c%e7%bb%b4%e7%a0%81%e9%87%8c%e5%8f%aa%e6%9c%89%e9%bb%91%e5%92%8c%e7%99%bdpdf" onclick="onNavClick(`#二维码里只有黑和白pdf-nav`)" id="二维码里只有黑和白pdf-nav">
+									二维码里只有黑和白.pdf
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#p02exe" onclick="onNavClick(`#p02exe-nav`)" id="p02exe-nav">
+									p02.exe
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e6%ba%90%e7%a0%81zip" onclick="onNavClick(`#源码zip-nav`)" id="源码zip-nav">
+									源码.zip
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e7%bb%93" onclick="onNavClick(`#结-nav`)" id="结-nav">
+									结
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div id="drawer-mask" v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav id="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div id="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a id="navTitle" class="navbar-brand" href="https://me0w00f.github.io/">
+            Me0w00f Security 
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" id="darkModeToggleButton2">
+            <i class="material-icons" id="darkModeToggleIcon2">
+                dark_mode
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" id="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="https://me0w00f.github.io/">
+        <div class="single-column-header-title">Me0w00f Security </div>
+        
+        <div class="single-column-header-subtitle">We are me0w00f security~</div>
+        
+
+    </a>
+</div>
+
+            <div id="content">
+                <div id="streamContainer" class="stream-container">
+
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+                
+            
+
+            <div class="post-head-wrapper"
+                
+                    
+                    
+                    style="background-image: url('https://me0w00f.github.io/images/%E6%88%AA%E5%9B%BE_2022-10-09_13-52-11.png')"
+                    
+                
+            >
+                <div class="post-title">
+                    写几个 Misc 的 WP
+                    
+                    <div class="post-subtitle">
+                        有手就行的题...
+                    </div>
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2022-10-09 13:47
+                        </time>
+                        
+
+                        
+                            <i class="material-icons" style="">folder</i>
+                                <a href="/categories/">[WP]</a>
+                                &nbsp;
+                        
+
+                        
+                            <i class="material-icons" style="">label</i>
+                            
+                                <a href="/tags/ctf">CTF</a>
+                                &nbsp;
+                            
+                                <a href="/tags/misc">Misc</a>
+                                &nbsp;
+                            
+                                <a href="/tags/%E9%BB%91%E5%AE%A2">黑客</a>
+                                &nbsp;
+                            
+                                <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8">网络安全</a>
+                                &nbsp;
+                            
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                
+                <div class="post-body" v-pre>
+                
+                    <h1 id="序">序</h1>
+<p>嘿嘿，昨天有几个《简单》的 Misc， 菜菜的我们研究了一整天，今天来写一下 WP。</p>
+<h1 id="week2ex_wordzip">[WEEK2]ex_word.zip</h1>
+<p>这是个压缩包，打开，里面是个 Word 文档。</p>
+<p><img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_13-57-16.png" alt=""></p>
+<p>解压出来，用 libreoffice 打开。</p>
+<p><img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-00-55.png" alt=""></p>
+<p>嗯&hellip;  没什么有价值的信息。</p>
+<p>根据我小时候用 winrar 打开过 docx 文件的经验来看， docx 文档本质上也可能是压缩文件。</p>
+<p>因此，我们将文件后缀改为zip</p>
+<pre tabindex="0"><code>$ mv 你抓鲁迅，跟我周树人有什么关系.docx 你抓鲁迅，跟我周树人有什么关系.zip -v
+</code></pre><p>然后进行解压</p>
+<pre tabindex="0"><code>unzip 你抓鲁迅，跟我周树人有什么关系.zip
+</code></pre><p><img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-04-25.png" alt=""></p>
+<p>得到三个目录，一个文件</p>
+<p><img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-05-29.png" alt=""></p>
+<p>打开 <code>word/media</code> 目录，发现两张图片，左边</p>
+<p><img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-06-24.png" alt=""></p>
+<p>分别用 <code>binwalk</code> 查看</p>
+<pre tabindex="0"><code>$ binwalk image1.jpeg 
+</code></pre><pre tabindex="0"><code>$ binwalk theme.png
+</code></pre><p><img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-08-31.png" alt=""></p>
+<p>发现 <code>theme.png</code> 有猫腻， <code>binwalk</code> 返回的数据告诉我们它其实是个 zip 压缩文件。</p>
+<p>因此，我们试着改它的后缀为 <code>*.zip</code></p>
+<pre tabindex="0"><code>$ mv theme.png theme.zip -v
+</code></pre><p><img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-10-40.png" alt=""></p>
+<p>解压这个压缩包</p>
+<pre tabindex="0"><code>unzip unzip theme.zip
+</code></pre><p>然后得到 <code>flag.xml</code></p>
+<p><img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-11-59.png" alt=""></p>
+<p>用 cat 查看它的内容得到 flag</p>
+<pre tabindex="0"><code>cat flag.xml
+</code></pre><p><img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-13-50.png" alt=""></p>
+<p>得到一串 emoji 表情:</p>
+<p>👥👪👪👚👫👝👲👫🐧🐨👪👖🐨👪👖👫👟🐧👖👫👩👬🐪👖👝🐨👘👞👴</p>
+<p>用 <a href="http://www.atoolbox.net/Tool.php?Id=937">emoji 在线解密工具</a>解密获得 flag</p>
+<p><img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-17-09.png" alt=""></p>
+<p>解密得到: <strong><code>nssctf{t01s_1s_th0_tru3_f1ag}</code></strong></p>
+<p>至此，此题已解。</p>
+<h1 id="二维码里只有黑和白pdf">二维码里只有黑和白.pdf</h1>
+<p>一个 pdf 文件，用浏览器打开是空白，表面上并不会得到任何结果。</p>
+<p>其实 pdf 本质上也是 zip 压缩</p>
+<p>不然可以用 <code>binwalk</code> 看一下，</p>
+<pre tabindex="0"><code>$ binwalk 二维码里只有黑和白.pdf 
+</code></pre><p><img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-21-02.png" alt=""></p>
+<p>我们试试直接把它格式改为 zip</p>
+<pre tabindex="0"><code>$ mv 二维码里只有黑和白.pdf 二维码里只有黑和白.zip -v
+</code></pre><p><img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-23-21.png" alt=""></p>
+<p>解压，得到一张图片</p>
+<p><img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-25-09.png" alt=""></p>
+<p><img src="/images/%E6%AD%A3%E5%A6%82%E8%AE%A1%E7%AE%97%E6%9C%BA%E9%87%8C%E5%8F%AA%E6%9C%890%E5%92%8C1.png" alt=""></p>
+<p>也许我们会被误导，因为最开始的文件提到了 “二维码”，但是我们用手机却无法扫出来。</p>
+<p>后来我去用谷歌识图搜索了一下，发现它确实是一种二维码，叫 <a href="https://en.wikipedia.org/wiki/MaxiCode">MaxiCode</a>.</p>
+<blockquote>
+<p>MaxiCode是由United Parcel Service最初创建和使用的公共域，机器可读的符号系统。它类似于Aztec码或QR码，适用于跟踪和管理包裹的运输，但使用的点排列成六角形网格而不是方形网格。MaxiCode已根据ISO / IEC 16023进行了标准化。</p>
+</blockquote>
+<p>这种码一般是无法用手机扫出来的（<del>这是半小时举着手机得出来的结论</del>）</p>
+<p>因此，我们需要去寻找 <a href="https://products.aspose.app/barcode/recognize/maxicode">MaxiCode 的在线解码工具</a>。</p>
+<p>用在线工具得出一串 base64 码: <code>bnNzY3Rme0lfaDB0ZV90aGVfUVJjMGRlISEhIX0=</code>
+<img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-29-44.png" alt=""></p>
+<p>解开这个 Base64 就可以得到答案了。</p>
+<p>这里我们用 Python, 这个脚本已经在我们的库里了哦～</p>
+<p><a href="https://github.com/me0w00f/SimpleTools/blob/main/base64decode.py">SimpleTools/base64decode.py</a></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># /usr/bin/python</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># -*- coding: utf-8 -*-</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> argparse
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> base64
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>parser <span style="color:#f92672">=</span> argparse<span style="color:#f92672">.</span>ArgumentParser(description<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;A base64 decoder script made by WeepingDogel for CTF.&#34;</span>)
+</span></span><span style="display:flex;"><span>parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;-d&#39;</span>, <span style="color:#e6db74">&#39;--decode&#39;</span>, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;decode some strings.&#34;</span>)
+</span></span><span style="display:flex;"><span>args <span style="color:#f92672">=</span> parser<span style="color:#f92672">.</span>parse_args()
+</span></span><span style="display:flex;"><span>r <span style="color:#f92672">=</span> base64<span style="color:#f92672">.</span>b64decode(args<span style="color:#f92672">.</span>decode)
+</span></span><span style="display:flex;"><span>print(r)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><pre tabindex="0"><code>$ python SimpleTools/base64decode.py -d &#39;bnNzY3Rme0lfaDB0ZV90aGVfUVJjMGRlISEhIX0=&#39;
+</code></pre><p><img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-38-13.png" alt=""></p>
+<p>得到flag: <strong><code>nssctf{I_h0te_the_QRc0de!!!!}'</code></strong></p>
+<h1 id="p02exe">p02.exe</h1>
+<p>嘿嘿，表面上看这是个 exe 文件，但想想，咱现在在 kali 上， 是 Linux， 那 Linux 怎么能跑 exe 文件呢？是吧</p>
+<p>直接拿 <code>hexdump</code> 来看</p>
+<pre tabindex="0"><code>$ hexdump -C p02.exe
+</code></pre><p><img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-46-57.png" alt=""></p>
+<p>看到了一句话： <code>This program cannot be run in DOS mode.</code></p>
+<p>意思是，在 dos 模式这个程序跑不了。</p>
+<p>我们再往下找找有没有什么信息。</p>
+<p>找到了</p>
+<p><img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-50-37.png" alt=""></p>
+<p>flag 在这</p>
+<p><img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-53-16.png" alt=""></p>
+<p>复制粘贴出来 <strong><code>NSSCTF{oh_you_find_it}</code></strong></p>
+<h1 id="源码zip">源码.zip</h1>
+<p>这个最难</p>
+<p>首先我们解压压缩包</p>
+<p><img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_14-58-02.png" alt=""></p>
+<p>得到一张图片和一个压缩包</p>
+<p><img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_15-00-45.png" alt=""></p>
+<p>压缩包有加密，因此我们得从这个图片中获得密码。</p>
+<p>先 <code>hexdump</code> 吧</p>
+<pre tabindex="0"><code>$ hexdump key.png -C
+</code></pre><p>找到线索</p>
+<p><img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_15-03-15.png" alt=""></p>
+<p><strong><code>{GMZTGYJQGM3TAYTDMQYGGMBUGRQWENTYGFRWMMZRMI2DINZYMUYDM===}..{broken password}</code></strong></p>
+<p>broken password 翻译过来是损坏的密码。</p>
+<p>我试过用 base64 去解这一串，但是解不出来。</p>
+<p>因此，我蒙它是 base32</p>
+<pre tabindex="0"><code>echo &#39;GMZTGYJQGM3TAYTDMQYGGMBUGRQWENTYGFRWMMZRMI2DINZYMUYDM===&#39; &gt; flag.txt
+</code></pre><pre tabindex="0"><code>base32 -d flag.txt
+</code></pre><p><img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_15-16-28.png" alt=""></p>
+<p>得到一串 <strong><code>333a0370bcd0c044ab6x1cf31b4478e06</code></strong></p>
+<p>不知道它是什么加密，是 md5 吗？看起来像。</p>
+<p><img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_15-19-48.png" alt=""></p>
+<p>无法解密。</p>
+<p>查了一下，md5只有32位字符。</p>
+<p><img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_15-21-10.png" alt=""></p>
+<p>而这一串有33位。</p>
+<p>我们堵它是md5,但是多了一位，不知道多出来的是哪一位。</p>
+<p>因此，我们要复制粘贴33列，每一列按顺序去掉一位。</p>
+<pre tabindex="0"><code>33a0370bcd0c044ab6x1cf31b4478e06
+33a0370bcd0c044ab6x1cf31b4478e06
+33a0370bcd0c044ab6x1cf31b4478e06
+3330370bcd0c044ab6x1cf31b4478e06
+333a370bcd0c044ab6x1cf31b4478e06
+333a070bcd0c044ab6x1cf31b4478e06
+333a030bcd0c044ab6x1cf31b4478e06
+333a037bcd0c044ab6x1cf31b4478e06
+333a0370cd0c044ab6x1cf31b4478e06
+333a0370bd0c044ab6x1cf31b4478e06
+333a0370bc0c044ab6x1cf31b4478e06
+333a0370bcdc044ab6x1cf31b4478e06
+333a0370bcd0044ab6x1cf31b4478e06
+333a0370bcd0c44ab6x1cf31b4478e06
+333a0370bcd0c04ab6x1cf31b4478e06
+333a0370bcd0c04ab6x1cf31b4478e06
+333a0370bcd0c044b6x1cf31b4478e06
+333a0370bcd0c044a6x1cf31b4478e06
+333a0370bcd0c044abx1cf31b4478e06
+333a0370bcd0c044ab61cf31b4478e06
+333a0370bcd0c044ab6xcf31b4478e06
+333a0370bcd0c044ab6x1f31b4478e06
+333a0370bcd0c044ab6x1c31b4478e06
+333a0370bcd0c044ab6x1cf1b4478e06
+333a0370bcd0c044ab6x1cf3b4478e06
+333a0370bcd0c044ab6x1cf314478e06
+333a0370bcd0c044ab6x1cf31b478e06
+333a0370bcd0c044ab6x1cf31b478e06
+333a0370bcd0c044ab6x1cf31b448e06
+333a0370bcd0c044ab6x1cf31b447e06
+333a0370bcd0c044ab6x1cf31b447806
+333a0370bcd0c044ab6x1cf31b4478e6
+333a0370bcd0c044ab6x1cf31b4478e0
+</code></pre><p>把这些复制粘贴到解密网站上，等结果</p>
+<p><img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_15-29-34.png" alt=""></p>
+<p>最后我们获得了密码: <strong><code>chinano1</code></strong></p>
+<p><img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_15-30-16.png" alt=""></p>
+<p>用密码解压出 flag1.png</p>
+<p>得到的又是图片</p>
+<p><img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_15-32-14.png" alt=""></p>
+<p>用 <code>binwalk</code> 查看</p>
+<pre tabindex="0"><code>$ binwalk flag1.png 
+</code></pre><p><img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_15-33-49.png" alt=""></p>
+<p>嗯&hellip; 到最后还是有个图片隐写。</p>
+<p>我们用 dd 命令分离， <code>skip=要分离出的那一项的长度</code>， 我们要分离中间的出来</p>
+<pre tabindex="0"><code>$ dd if=flag1.png of=flag.png skip=74016 bs=1
+</code></pre><p>又得到一张图片，打开图片显示的就是我们的 flag 啦～！</p>
+<p><img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_15-37-10.png" alt=""></p>
+<p><img src="/images/%E6%88%AA%E5%9B%BE_2022-10-09_15-36-29.png" alt=""></p>
+<p>最后我们得到了 flag～！！</p>
+<p><img src="/images/flag-%E6%BA%90%E7%A0%81.zip.png" alt=""></p>
+<p>至此，此题已解~</p>
+<h1 id="结">结</h1>
+<p>好啦，写完啦～</p>
+<p>没想到这些签到题花了一天的时间呢&hellip;</p>
+<hr>
+<p>本篇作者: <a href="">WeepingDogel</a></p>
+
+                    
+                    <HR width="100%" id="EOF">
+		    <p style="color:#777;">最后修改于 2022-10-09</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts">
+			下回<br>已经到头啦。
+                </a>
+                
+                
+                
+                <a class="older-posts" href="/posts/hello/">
+			上回<br>Hello
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+
+
+
+
+
+
+
+
+<script src="https://utteranc.es/client.js"
+        repo="me0w00f/me0w00f.github.io"
+        issue-term="title"
+        label="comments"
+        theme="preferred-color-scheme"
+        crossorigin="anonymous"
+        async>
+</script>
+
+            </div>
+        </div>
+    </div>
+
+
+                    </div>
+            </div><div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+移植自 <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+</div>
+            </div>
+    
+    <script src="/js/journal.js"></script></body>
+</html>
