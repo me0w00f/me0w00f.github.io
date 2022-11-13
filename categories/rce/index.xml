@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>网络安全 on Me0w00f Security </title>
-    <link>https://me0w00f.github.io/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/</link>
-    <description>Recent content in 网络安全 on Me0w00f Security </description>
+    <title>RCE on Me0w00f Security </title>
+    <link>https://me0w00f.github.io/categories/rce/</link>
+    <description>Recent content in RCE on Me0w00f Security </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Copyleft 2022 Me0w00f Security</copyright>
-    <lastBuildDate>Sun, 13 Nov 2022 11:57:09 +0800</lastBuildDate><atom:link href="https://me0w00f.github.io/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 13 Nov 2022 11:57:09 +0800</lastBuildDate><atom:link href="https://me0w00f.github.io/categories/rce/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>利用pip下载并执行恶意代码的姿势</title>
       <link>https://me0w00f.github.io/posts/pip/</link>
@@ -32,30 +32,6 @@ pip就下载并执行了A准备好的恶意的代码
 B: 诶? 鼠标怎么自己动起来了???
 本质原理 我们可以去看一下pip的这段源码
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 def unpack_file( filename: str, location: str, content_type: Optional[str] = None, ) -&amp;gt; None: filename = os.</description>
-    </item>
-    
-    <item>
-      <title>写几个 Misc 的 WP</title>
-      <link>https://me0w00f.github.io/posts/somewp/</link>
-      <pubDate>Sun, 09 Oct 2022 13:47:29 +0800</pubDate>
-      
-      <guid>https://me0w00f.github.io/posts/somewp/</guid>
-      <description>序 嘿嘿，昨天有几个《简单》的 Misc， 菜菜的我们研究了一整天，今天来写一下 WP。
-[WEEK2]ex_word.zip 这是个压缩包，打开，里面是个 Word 文档。
-解压出来，用 libreoffice 打开。
-嗯&amp;hellip; 没什么有价值的信息。
-根据我小时候用 winrar 打开过 docx 文件的经验来看， docx 文档本质上也可能是压缩文件。
-因此，我们将文件后缀改为zip
-$ mv 你抓鲁迅，跟我周树人有什么关系.docx 你抓鲁迅，跟我周树人有什么关系.zip -v 然后进行解压
-unzip 你抓鲁迅，跟我周树人有什么关系.zip 得到三个目录，一个文件
-打开 word/media 目录，发现两张图片，左边
-分别用 binwalk 查看
-$ binwalk image1.jpeg $ binwalk theme.png 发现 theme.png 有猫腻， binwalk 返回的数据告诉我们它其实是个 zip 压缩文件。
-因此，我们试着改它的后缀为 *.zip
-$ mv theme.png theme.zip -v 解压这个压缩包
-unzip unzip theme.zip 然后得到 flag.xml
-用 cat 查看它的内容得到 flag
-cat flag.xml 得到一串 emoji 表情:</description>
     </item>
     
   </channel>
