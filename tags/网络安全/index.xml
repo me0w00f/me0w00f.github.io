@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>网络安全 on Me0w00f Security </title>
+    <title>网络安全 on Me0w00f的IT窝窝</title>
     <link>https://me0w00f.github.io/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/</link>
-    <description>Recent content in 网络安全 on Me0w00f Security </description>
+    <description>Recent content in 网络安全 on Me0w00f的IT窝窝</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>Copyleft 2022 Me0w00f Security</copyright>
-    <lastBuildDate>Sun, 13 Nov 2022 11:57:09 +0800</lastBuildDate><atom:link href="https://me0w00f.github.io/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>Copyleft 2022 Me0w00f</copyright>
+    <lastBuildDate>Sat, 10 Jun 2023 13:52:53 +0800</lastBuildDate><atom:link href="https://me0w00f.github.io/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>关于检测KVM虚拟机</title>
+      <link>https://me0w00f.github.io/posts/vm/</link>
+      <pubDate>Sat, 10 Jun 2023 13:52:53 +0800</pubDate>
+      
+      <guid>https://me0w00f.github.io/posts/vm/</guid>
+      <description>KVM/QEMU 虚拟机检测 之前一段时间，在做红队项目拿到一Windows系统shell之后，
+团队在第一时间跑了systeminfo
+但是发现了一件奇怪的事情: 明明是Windows, 一些驱动居然还有Red Hat关键字&amp;hellip;
+又看到BIOS和内存信息，就判断目标机器不是虚拟机&amp;hellip;
+实际上，目标机器是虚拟机&amp;hellip;
+Part 0 &amp;ndash; systeminfo 搭建了一个和当时情况差不多的虚拟机，以下是systeminfo信息
+C:\Users\kira&amp;gt;systeminfo 主机名: DESKTOP-A9OJ2HO OS 名称: Microsoft Windows 10 专业版 OS 版本: 10.0.19045 暂缺 Build 19045 OS 制造商: Microsoft Corporation OS 配置: 独立工作站 OS 构建类型: Multiprocessor Free 注册的所有人: kira 注册的组织: 产品 ID: 00331-10000-00001-AA065 初始安装日期: 2023/5/1, 0:44:39 系统启动时间: 2023/6/10, 13:56:16 系统制造商: Gigabyte Technology Co., Ltd. 系统型号: X570 AORUS ULTRA 系统类型: x64-based PC 处理器: 安装了 1 个处理器。 [01]: Intel64 Family 6 Model 142 Stepping 12 GenuineIntel ~1800 Mhz BIOS 版本: American Megatrends Inc.</description>
+    </item>
+    
     <item>
       <title>利用pip下载并执行恶意代码的姿势</title>
       <link>https://me0w00f.github.io/posts/pip/</link>

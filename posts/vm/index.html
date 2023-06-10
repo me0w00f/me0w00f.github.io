@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html><head>
+<title>关于检测KVM虚拟机</title>
+
+
+
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="什么? 这是虚拟机? 不可能!">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<meta property="og:title" content="关于检测KVM虚拟机" />
+<meta property="og:description" content="什么? 这是虚拟机? 不可能!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://me0w00f.github.io/posts/vm/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-06-10T13:52:53+08:00" />
+<meta property="article:modified_time" content="2023-06-10T13:52:53+08:00" /><meta property="og:site_name" content="My Blog" />
+
+
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="关于检测KVM虚拟机"/>
+<meta name="twitter:description" content="什么? 这是虚拟机? 不可能!"/>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="/scss/journal.min.c5d92f380bf10f6849c7ac487c7df2b22c081e0851e5339224f1ae29210b20d2.css" integrity="sha256-xdkvOAvxD2hJx6xIfH3ysiwIHghR5TOSJPGuKSELINI=" media="screen">
+
+
+
+<link rel="stylesheet" href="/scss/dark-mode.min.9f8d8c2df9285089d141edd4a50cb7506c7948e6ab79a29968dced1bd0ab7d22.css" integrity="sha256-n42MLfkoUInRQe3UpQy3UGx5SOareaKZaNztG9CrfSI=" media="screen">
+
+
+
+
+      <script src="/js/toc.js"></script>
+    
+    <link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css"><link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Material+Icons">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+    	<div id="app"><div id="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="https://me0w00f.github.io/">
+    
+        <div class="nav-title">
+            Me0w00f的IT窝窝
+        </div>
+        
+        <div class="nav-subtitle">
+            meow? woof?
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+                
+            
+            
+            
+            <a class="a-block nav-link-item active" href="/posts">
+                Archive
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                Categories
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                Tags
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/about">
+                About
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/index.xml">
+                RSS Feed
+            </a>
+            
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+移植自 <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	Copyleft 2022 Me0w00f
+	
+
+    </div>
+    
+</div><div id="extraContainer" class="extra-container">
+    
+    
+    <div class="toc animated-visibility" :class="{ invisible: scrollY <= 140 }">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- 目录 -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#kvmqemu-%e8%99%9a%e6%8b%9f%e6%9c%ba%e6%a3%80%e6%b5%8b" onclick="onNavClick(`#kvmqemu-虚拟机检测-nav`)" id="kvmqemu-虚拟机检测-nav">
+									KVM/QEMU 虚拟机检测
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#part-0----systeminfo" onclick="onNavClick(`#part-0----systeminfo-nav`)" id="part-0----systeminfo-nav">
+									Part 0 – systeminfo
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#part-1----%e7%ae%80%e5%8d%95bypass" onclick="onNavClick(`#part-1----简单bypass-nav`)" id="part-1----简单bypass-nav">
+									Part 1 – 简单Bypass
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#part-2----%e8%af%86%e5%88%ab" onclick="onNavClick(`#part-2----识别-nav`)" id="part-2----识别-nav">
+									Part 2 – 识别
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%8f%82%e8%80%83" onclick="onNavClick(`#参考-nav`)" id="参考-nav">
+									参考
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+    
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a type="button" class="pagination-action" id="darkModeToggleButton">
+            <span class="material-icons pagination-action-icon" id="darkModeToggleIcon">
+                dark_mode
+            </span>
+        </a>
+        
+        
+    </div>
+</div>
+<div class="single-column-drawer-container" id="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                    
+                
+                
+                
+                <a class="a-block drawer-menu-item active" href="/posts">
+                    Archive
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    Categories
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    Tags
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/about">
+                    About
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/index.xml">
+                    RSS Feed
+                </a>
+                
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- 目录 -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#kvmqemu-%e8%99%9a%e6%8b%9f%e6%9c%ba%e6%a3%80%e6%b5%8b" onclick="onNavClick(`#kvmqemu-虚拟机检测-nav`)" id="kvmqemu-虚拟机检测-nav">
+									KVM/QEMU 虚拟机检测
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#part-0----systeminfo" onclick="onNavClick(`#part-0----systeminfo-nav`)" id="part-0----systeminfo-nav">
+									Part 0 – systeminfo
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#part-1----%e7%ae%80%e5%8d%95bypass" onclick="onNavClick(`#part-1----简单bypass-nav`)" id="part-1----简单bypass-nav">
+									Part 1 – 简单Bypass
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#part-2----%e8%af%86%e5%88%ab" onclick="onNavClick(`#part-2----识别-nav`)" id="part-2----识别-nav">
+									Part 2 – 识别
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%8f%82%e8%80%83" onclick="onNavClick(`#参考-nav`)" id="参考-nav">
+									参考
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div id="drawer-mask" v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav id="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div id="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a id="navTitle" class="navbar-brand" href="https://me0w00f.github.io/">
+            Me0w00f的IT窝窝
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" id="darkModeToggleButton2">
+            <i class="material-icons" id="darkModeToggleIcon2">
+                dark_mode
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" id="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="https://me0w00f.github.io/">
+        <div class="single-column-header-title">Me0w00f的IT窝窝</div>
+        
+        <div class="single-column-header-subtitle">meow? woof?</div>
+        
+
+    </a>
+</div>
+
+            <div id="content">
+                <div id="streamContainer" class="stream-container">
+
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+                
+            
+
+            <div class="post-head-wrapper"
+                
+                    
+                    
+                    style="background-image: url('https://me0w00f.github.io/images/2.png')"
+                    
+                
+            >
+                <div class="post-title">
+                    关于检测KVM虚拟机
+                    
+                    <div class="post-subtitle">
+                        什么? 这是虚拟机? 不可能!
+                    </div>
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2023-06-10 13:52
+                        </time>
+                        
+
+                        
+                            <i class="material-icons" style="">folder</i>
+                                <a href="/categories/%E8%99%9A%E6%8B%9F%E6%9C%BA">虚拟机</a>
+                                &nbsp;
+                        
+
+                        
+                            <i class="material-icons" style="">label</i>
+                            
+                                <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8">网络安全</a>
+                                &nbsp;
+                            
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                
+                <div class="post-body" v-pre>
+                
+                    <h1 id="kvmqemu-虚拟机检测">KVM/QEMU 虚拟机检测</h1>
+<p>之前一段时间，在做红队项目拿到一Windows系统<code>shell</code>之后，</p>
+<p>团队在第一时间跑了<code>systeminfo</code></p>
+<p>但是发现了一件奇怪的事情: 明明是Windows, 一些驱动居然还有Red Hat关键字&hellip;</p>
+<p>又看到BIOS和内存信息，就判断目标机器不是虚拟机&hellip;</p>
+<blockquote>
+<p>实际上，目标机器是虚拟机&hellip;</p>
+</blockquote>
+<h2 id="part-0----systeminfo">Part 0 &ndash; systeminfo</h2>
+<p>搭建了一个和当时情况差不多的虚拟机，以下是<code>systeminfo</code>信息</p>
+<pre tabindex="0"><code>C:\Users\kira&gt;systeminfo
+
+主机名:           DESKTOP-A9OJ2HO
+OS 名称:          Microsoft Windows 10 专业版
+OS 版本:          10.0.19045 暂缺 Build 19045
+OS 制造商:        Microsoft Corporation
+OS 配置:          独立工作站
+OS 构建类型:      Multiprocessor Free
+注册的所有人:     kira
+注册的组织:
+产品 ID:          00331-10000-00001-AA065
+初始安装日期:     2023/5/1, 0:44:39
+系统启动时间:     2023/6/10, 13:56:16
+系统制造商:       Gigabyte Technology Co., Ltd.
+系统型号:         X570 AORUS ULTRA
+系统类型:         x64-based PC
+处理器:           安装了 1 个处理器。
+                  [01]: Intel64 Family 6 Model 142 Stepping 12 GenuineIntel ~1800 Mhz
+BIOS 版本:        American Megatrends Inc. F31o, 2020/12/3
+Windows 目录:     C:\Windows
+系统目录:         C:\Windows\system32
+启动设备:         \Device\HarddiskVolume1
+系统区域设置:     zh-cn;中文(中国)
+输入法区域设置:   zh-cn;中文(中国)
+时区:             (UTC+08:00) 北京，重庆，香港特别行政区，乌鲁木齐
+物理内存总量:     10,239 MB
+可用的物理内存:   7,785 MB
+虚拟内存: 最大值: 11,839 MB
+虚拟内存: 可用:   9,544 MB
+虚拟内存: 使用中: 2,295 MB
+页面文件位置:     C:\pagefile.sys
+域:               WORKGROUP
+登录服务器:       \\DESKTOP-A9OJ2HO
+修补程序:         安装了 8 个修补程序。
+                  [01]: KB5022502
+                  [02]: KB5012170
+                  [03]: KB5015684
+                  [04]: KB5026361
+                  [05]: KB5014032
+                  [06]: KB5016705
+                  [07]: KB5023794
+                  [08]: KB5025315
+网卡:             安装了 1 个 NIC。
+                  [01]: Red Hat VirtIO Ethernet Adapter
+                      连接名:      以太网
+                      启用 DHCP:   是
+                      DHCP 服务器: 192.168.122.1
+                      IP 地址
+                        [01]: 192.168.122.42
+                        [02]: fe80::9055:b705:f922:d690
+Hyper-V 要求:     已检测到虚拟机监控程序。将不显示 Hyper-V 所需的功能。
+</code></pre><blockquote>
+<p>当时情况CPU核心数和内存要高一些</p>
+</blockquote>
+<h2 id="part-1----简单bypass">Part 1 &ndash; 简单Bypass</h2>
+<p>后来偶然中了解了这种简单Bypass的技巧</p>
+<p><del>(虽然只是因为我想在vm里装VRChat= =)</del></p>
+<p>本质上就是把虚拟机相关的信息删除并换成真实机器的</p>
+<p>打开虚拟机的XML进行修改</p>
+<p>你可以在<code>Virtual Machine Manager</code>里直接修改，或者输入以下命令</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>virsh edit 虚拟机名
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>你需要修改以下内容:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;features&gt;</span>
+</span></span><span style="display:flex;"><span>   ...
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;hyperv</span> <span style="color:#a6e22e">mode=</span><span style="color:#e6db74">&#34;custom&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>      ...
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;vendor_id</span> <span style="color:#a6e22e">state=</span><span style="color:#e6db74">&#34;on&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;0123756792CD&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/hyperv&gt;</span>
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/features&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;hyperv</span> <span style="color:#a6e22e">mode=</span><span style="color:#e6db74">&#39;passthrough&#39;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">&lt;!-- whatever --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/hyperv&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;sysinfo</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#34;smbios&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;bios&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;entry</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;vendor&#34;</span><span style="color:#f92672">&gt;</span>American Megatrends Inc.<span style="color:#f92672">&lt;/entry&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;entry</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;version&#34;</span><span style="color:#f92672">&gt;</span>F31o<span style="color:#f92672">&lt;/entry&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;entry</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;date&#34;</span><span style="color:#f92672">&gt;</span>12/03/2020<span style="color:#f92672">&lt;/entry&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/bios&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;system&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;entry</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;manufacturer&#34;</span><span style="color:#f92672">&gt;</span>Gigabyte Technology Co., Ltd.<span style="color:#f92672">&lt;/entry&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;entry</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;product&#34;</span><span style="color:#f92672">&gt;</span>X570 AORUS ULTRA<span style="color:#f92672">&lt;/entry&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;entry</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;version&#34;</span><span style="color:#f92672">&gt;</span>x.x<span style="color:#f92672">&lt;/entry&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;entry</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;serial&#34;</span><span style="color:#f92672">&gt;</span>Default string<span style="color:#f92672">&lt;/entry&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;entry</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;uuid&#34;</span><span style="color:#f92672">&gt;</span>2f3652a4-c581-4432-b9d9-0d14699083ca<span style="color:#f92672">&lt;/entry&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;entry</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;sku&#34;</span><span style="color:#f92672">&gt;</span>Default string&#34;<span style="color:#f92672">&lt;/entry&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;entry</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;family&#34;</span><span style="color:#f92672">&gt;</span>X570 MB<span style="color:#f92672">&lt;/entry&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/system&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/sysinfo&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>用<code>virsh domuuid 虚拟机名</code> 获取你的uuid</p>
+</blockquote>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span> <span style="color:#f92672">&lt;os&gt;</span>
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;smbios</span> <span style="color:#a6e22e">mode=</span><span style="color:#e6db74">&#34;sysinfo&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/os&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="part-2----识别">Part 2 &ndash; 识别</h2>
+<p>不过话说回来，虽然能骗过一些虚拟机检测软件&hellip;</p>
+<p>不过对于win来说，人眼还是很好识别的:)</p>
+<p>总结来说就是这些特征:</p>
+<ul>
+<li>
+<p>经典<strong>Hyper-V 要求: 已检测到虚拟机监控程序。将不显示 Hyper-V 所需的功能。</strong></p>
+</li>
+<li>
+<p>Windows但是<code>Red Hat VirtIO Ethernet Adapter</code></p>
+</li>
+</ul>
+<h2 id="参考">参考</h2>
+<p><a href="https://docs.vrchat.com/docs/using-vrchat-in-a-virtual-machine#libvirt">https://docs.vrchat.com/docs/using-vrchat-in-a-virtual-machine#libvirt</a></p>
+<p><a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/virtualization_administration_guide/sub-sect-retrieving_guest_virtual_machine_information-getting_the_uuid_of_a_guest_virtual_machine">14.10.3. Getting the UUID of a Guest Virtual Machine Red Hat Enterprise Linux 6 | Red Hat Customer Portal</a></p>
+<p>本篇文章是<a href="https://kira-pgr.github.io/">猫猫</a>水哒~</p>
+
+                    
+                    <HR width="100%" id="EOF">
+		    <p style="color:#777;">最后修改于 2023-06-10</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts">
+			下回<br>已经到头啦。
+                </a>
+                
+                
+                
+                <a class="older-posts" href="/posts/pip/">
+			上回<br>利用pip下载并执行恶意代码的姿势
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+
+
+
+
+
+
+
+
+<script src="https://utteranc.es/client.js"
+        repo="me0w00f/me0w00f.github.io"
+        issue-term="title"
+        label="comments"
+        theme="preferred-color-scheme"
+        crossorigin="anonymous"
+        async>
+</script>
+
+            </div>
+        </div>
+    </div>
+
+
+                    </div>
+            </div><div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+移植自 <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	Copyleft 2022 Me0w00f
+	
+</div>
+            </div>
+    
+    <script src="/js/journal.js"></script></body>
+</html>
